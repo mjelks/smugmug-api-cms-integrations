@@ -1,0 +1,1 @@
+# smugmug-api-cms-integrations

@@ -30,9 +30,9 @@ class TestSmugmugApi():
     def test_smugmug_get_request_good(valid_endpoint):
         sample_endpoint = '/api/v2/album/RdQFjC!images'
         actual = SmugmugApi();
-        assert actual.smugmug_get_request(sample_endpoint).json()['Code'] == 200;
+        assert actual.smugmug_get_request(sample_endpoint)['status'] == 200;
 
-    # def test_smugmug_get_request_bad(invalid_endpoint):
-    #     sample_endpoint = '/foo/biz'
-    #     actual = SmugmugApi();
-    #     actual.smugmug_get_request(sample_endpoint);
+    def test_smugmug_get_request_bad(invalid_endpoint):
+        sample_endpoint = '/foo/biz'
+        actual = SmugmugApi();
+        assert actual.smugmug_get_request(sample_endpoint)['status'] == 404;

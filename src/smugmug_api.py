@@ -16,19 +16,23 @@ class SmugmugApi:
     # return req.get(endpoint, headers=JSON_HEADERS, params=).json()['Response'];
     # /api/v2/album/SJT3DX!images
     # url = self.smugmug_dynamic_endpoint('/api/v2/album/SJT3DX!images');
+    response_payload = { "status": '', "response": '' };
     url = self.smugmug_dynamic_endpoint(endpoint);
     all_params = { 'APIKey': self.SMUGMUG_API_KEY };
     try:
-        all_params.update(params);
+        all_params.update(params); # merge in _filters & _expand options
         response = req.get(url, headers=self.JSON_HEADERS, params=all_params);
+        response_payload['status'] = response.status_code
+        if response.status_code == 200:
+            response_payload['response'] = response.json()['Response']
         response.raise_for_status()
     except req.exceptions.HTTPError as errh:
-        print("HTTP Error")
-        print(errh.args[0])
+        print("HTTP Error");
+        # leave this uncommented for debugging on local dev only
+        # as there is sensitive API_KEY in the GET call as part of error msg
+        # print(errh.args[0])
 
-    # ideally a 200 response (success)
-    # .json()['Response'] will extract the contents we need later
-    return response
+    return response_payload
 
   def smugmug_dynamic_endpoint(self, endpoint_fragment):
     return f'{self.SMUGMUG_API_ENDPOINT}{endpoint_fragment}';

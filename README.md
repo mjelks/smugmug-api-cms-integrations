@@ -5,6 +5,12 @@
 This library is an exercise of taking existing galleries and importing them into
 various CMSes as a way of rapidly generating content on various platforms.
 
+## Setup
+
+- A SmugMug [API Key](https://api.smugmug.com/api/v2/doc/tutorial/api-key.html)
+- A target CMS that is externally accessible, AND has a POST style create API mechanism
+
+
 ## Current workflow
 
 Currently I upload galleries to a SmugMug hosted environment using the
@@ -24,3 +30,8 @@ SmugMug platform leave a few items to be desired, specifically:
 
 - Take an existing array of gallery nodes and populate a CMS of choice.
 (currently starting with ghost.org)
+- Automate the process by running a cron process so that updates made on SmugMug
+can be reflected on the CMS(es) of choice.
+- Familiarize myself with Python (coming from a primarily Ruby background),
+as this language is compatible with pipedream.com, the service that will be used
+to run the automation.
